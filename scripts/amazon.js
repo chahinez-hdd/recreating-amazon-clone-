@@ -1,5 +1,6 @@
 import { cart, addToCart } from '../data/cart.js';
 import { products } from '../data/products.js';
+import { reviewFunction } from './checkout.js';
 let productsHTML='';
 
 products.forEach((product)=>{
@@ -93,6 +94,7 @@ document.querySelectorAll('.js-add-to-cart')
             
             addToCart(productId);
             updateCartQuantity(productId);
+            reviewFunction();
             
             
             
