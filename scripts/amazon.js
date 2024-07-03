@@ -1,4 +1,5 @@
-import { cart } from "../data/cart";
+import { cart, addToCart } from '../data/cart.js';
+import { products } from '../data/products.js';
 let productsHTML='';
 
 products.forEach((product)=>{
@@ -62,46 +63,39 @@ document.querySelector('.js-products-grid')
 
 let firstTime=false;
 
-document.querySelectorAll('.js-add-to-cart')
-    .forEach((button)=>{
-        button.addEventListener('click',()=>{
-            const productId=button.dataset.productId;
-            let matchingItem;
-            
-            cart.forEach((item)=>{
-                if(item.productId===productId)
-                    matchingItem=item;
-            });
-            
-            let idProductSelector=document.querySelector(`.js-quantity-selector-${productId}`);
 
-            if(matchingItem)
-                matchingItem.quantity+=Number(idProductSelector.value);
-            else 
-                cart.push({
-                    productId,
-                    quantity:Number(idProductSelector.value)
-                });
+
+function updateCartQuantity(productId){
+    let cartQuantity=0;
             
-            
-            
-            let cartQuantity=0;
-            
-            cart.forEach((item)=>{
-                cartQuantity+=item.quantity;
+            cart.forEach((cartItem)=>{
+                cartQuantity+=cartItem.quantity;
             });
 
             document.querySelector('.js-cart-quantity')
                 .innerHTML=cartQuantity;
             
             if(!firstTime){
-            addedFunction(productId);
-            firstTime=true;
+                addedFunction(productId);
+                firstTime=true;
             }
             else{
                 addedDisapear(productId);
                 firstTime=false;
             }
+}
+
+document.querySelectorAll('.js-add-to-cart')
+    .forEach((button)=>{
+        button.addEventListener('click',()=>{
+            const productId=button.dataset.productId;
+           // let matchingItem;
+            
+            addToCart(productId);
+            updateCartQuantity(productId);
+            
+            
+            
         });
     });
 let id2;
