@@ -98,7 +98,7 @@ document.querySelectorAll('.js-add-to-cart')
            // reviewFunction();
             
             
-            
+           
         });
     });
 let id2;
@@ -122,3 +122,6 @@ function addedDisapear(id){
     },2000); 
 
 }
+
+updateCartQuantity();
+
